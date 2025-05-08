@@ -1,3 +1,8 @@
+<?php
+  session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,17 +73,12 @@
                       <div class="invalid-feedback">Please enter your password!</div>
                     </div>
 
-                    <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="role" value="student" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Student</label>
-                      </div>
-                    </div>
+      
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit" name="login">Login</button>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0">Don't have account? <a href="register.php">Create an account</a></p>
+                      <p class="small mb-0">Don't have account? <a href="#">Contact Admin</a></p>
                     </div>
                     
                     <?php
@@ -89,18 +89,17 @@
 
                             $email = $_POST['email'];
                             $password = $_POST['password'];
-                            $role =$_POST['role'];
 
 
-                            $sql ="SELECT * FROM `users` WHERE `email`='$email'  AND `password`='$password'";
+                            $sql ="SELECT * FROM `teacher` WHERE `email`='$email'  AND `password`='$password'";
 
                             $check_login = mysqli_query($conn , $sql );
 
                             $login_rows = mysqli_num_rows($check_login);
 
                             if($login_rows == 1){
-                                $_SESSION['account'] = $email;
-                              echo "<script> window.location.href ='Dashboard/Teacher/index.html';</script>";
+                                $_SESSION['users'] = $email;
+                              echo "<script> window.location.href ='Dashboard/Teacher/index.php';</script>";
 
                             }else{
                                 ?>

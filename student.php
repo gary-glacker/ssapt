@@ -1,6 +1,10 @@
+<?php
+  session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -72,7 +76,7 @@
                       <button class="btn btn-primary w-100" type="submit" name="login">Login</button>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0">Don't have account? <a href="register.php">Create an account</a></p>
+                      <p class="small mb-0">Don't have account? <a href="register.php">Contact with Admin</a></p>
                     </div>
                     
                     <?php
@@ -84,15 +88,15 @@
                             $email = $_POST['email'];
                             $password = $_POST['password'];
 
-                            $sql ="SELECT * FROM `users` WHERE `email`='$email'  AND `password`='$password'";
+                            $sql ="SELECT * FROM `student` WHERE `email`='$email'  AND `password`='$password'";
 
                             $check_login = mysqli_query($conn , $sql );
 
                             $login_rows = mysqli_num_rows($check_login);
 
                             if($login_rows == 1){
-                                $_SESSION['account'] = $email;
-                              echo "<script> window.location.href = 'Dashboard/Student/index.html';</script>";
+                                $_SESSION['student'] = $email;
+                              echo "<script> window.location.href = 'Dashboard/Student/index.php';</script>";
                               echo "<script>alert('Welcome to SSAPT as Student);</script>";
                                 
                                 

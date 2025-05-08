@@ -3,7 +3,7 @@
 
 session_start();
 
-if(!isset($_SESSION['account'])){
+if(!isset($_SESSION['student'])){
     ?>
       <script>
         window.location.href = '../../index.php';
@@ -20,7 +20,7 @@ if(!isset($_SESSION['account'])){
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Nofication - SSAPT </title>
+  <title> Report - SSAPT </title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -44,10 +44,9 @@ if(!isset($_SESSION['account'])){
 </head>
 
 <body>
-
-   <!-- heade section start -->
+ <!-- heade section start -->
       
-   <?php 
+ <?php 
     include ("components/header.php");
     ?>
 
@@ -60,86 +59,101 @@ if(!isset($_SESSION['account'])){
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Notification</li>
+          <li class="breadcrumb-item active">Reports</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
-      <div class="row">
         <div class="col-lg-12">
 
             <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">New Annocuments</h5>
-  
-                <form class="row g-3 needs-validation"  method="POST">
-                    
+            <div class="card-body">
+                <h5 class="card-title">New Student</h5>
+
+                <form class="row g-3 needs-validation" novalidate method="POST">
+
+                    <?php
+                        //connection
+                        $conn = mysqli_connect("localhost","root","","school");
+
+                        $userid = $_SESSION['student'];
+
+                        $select ="SELECT * FROM `student` WHERE `email` ='$userid'";
+                        $query = mysqli_query($conn,$select);
+
+                        while($row = mysqli_fetch_assoc($query)){
+                        
+                        ?>
+                                
                     <div class="col-12">
-                      <label for="yourName" class="form-label">Title Annocuments</label>
-                      <input type="text" name="title" class="form-control" id="yourName" required>
+                    <label for="yourName" class="form-label">Your Name</label>
+                    <input type="text" name="name" class="form-control" id="yourName" value="<?php echo $row['name']?>" readonly>
+                    <div class="invalid-feedback">Please, enter your full name!</div>
                     </div>
 
                     <div class="col-12">
-                      <label for="yourName" class="form-label">Messgae</label>
-                      <input type="text" name="message" class="form-control" id="yourName" required>
+                    <label for="yourEmail" class="form-label">Your Email</label>
+                    <input type="text" name="email" class="form-control" id="yourEmail" value="<?php echo $row['email']?>" readonly>
+                    <div class="invalid-feedback">Please enter a valid Email adddress!</div>
                     </div>
 
                     <div class="col-12">
-                      <label for="yourRole" class="form-label">Role</label>
-                      <div class="input-group has-validation">
-                        <select name="role"  class="form-control" id="yourRole">
-                          <option selected> -- Choose your Status -- </option>
-                          <option value="student">Student</option>
-                          <option value="teacher">Teacher</option>
+                    <label for="yourEmail" class="form-label">Your Role</label>
+                    <input type="text" name="role" class="form-control" id="yourEmail" value="<?php echo $row['role']?>" readonly>
+                    <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                    </div>
+                    <?php }?>
+
+                    <div class="col-12">
+                    <label for="yourRole" class="form-label">Report</label>
+                    <div class="input-group has-validation">
+                        <select name="pb"  class="form-control" id="yourRole">
+                        <option selected> -- Choose your Status -- </option>
+                        <option value="change-password">Password Change</option>
+                        <option value="features"> Lack Features</option>
+                        <option value="result-report-student">Reslut Problem</option>
                         </select>
-                      </div>
+
+                    </div>
                     </div>
 
-                    <div class="col-12">
-                      <label for="yourName" class="form-label">Date</label>
-                      <input type="date" name="date" class="form-control" id="yourName" required>
-                    </div>
 
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit" name="create">Create Account</button>
+                    <button class="btn btn-primary w-100" type="submit" name="create">Create Account</button>
                     </div>
-                   
+                
                     <?php
                     //Connection in database
                     $conn = mysqli_connect("localhost","root","","school");
 
+            
+
                     if(isset($_POST['create'])){
                         
-                        $title = $_POST['title'];
-                        $message = $_POST['message'];
+                        $name = $_POST['name'];
+                        $em = $_POST['email'];
                         $role = $_POST['role'];
-                        $date = $_POST['date'];
-                        $creator = 'admin';
- 
-                            $create ="INSERT INTO `notifications`(`title`, `message`, `target_role`, `created_by`, `created_at`) VALUES ('$title','$message','$role','$creator','$date')";
+                        $pb =$_POST['pb'];
+
+                            $create ="INSERT INTO `report`( `name`, `email`, `role`, `issue`) VALUES ('$name','$em','$role','$pb')";
 
                             $query = mysqli_query($conn, $create);
 
                             if($query){
-                                echo "<script> alert('Your are add New Annoucement'); </script>";
+                                echo "<script> alert('Your are Add New Report'); </script>";
                                 echo "<script> window.location.href ='index.php';</script>";
                             }else{
-                                echo "<script> alert('Your are not add annoucement'); </script>";
+                                echo "<script> alert('Your are not add report'); </script>";
                             }
 
                         }
                     ?>
-                  </form>
-              </div>
+                </form>
             </div>
-  
+            </div>
+
         </div>
-      
-      </div>
-        
-        
-    
 
     </section>
 

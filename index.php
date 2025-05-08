@@ -1,3 +1,7 @@
+<?php
+  session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,7 +69,7 @@
                       <a class="btn btn-primary w-100" href="admin.php">Admin</a>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0">Don't have account? <a href="register.php">Create an account</a></p>
+                      <p class="small mb-0">Don't have account? <a href="#">Contact with Admin</a></p>
                     </div>
 
                   </form>

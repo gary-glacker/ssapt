@@ -1,3 +1,8 @@
+<?php
+  session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -72,7 +77,7 @@
                       <button class="btn btn-primary w-100" type="submit" name="login">Login</button>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0">Don't have account? <a href="register.php">Create an account</a></p>
+                      <p class="small mb-0">Don't have account? <a href="#">Contact with Admin</a></p>
                     </div>
                     
                     <?php
@@ -98,7 +103,7 @@
 
                                 $_SESSION['account'] = $email;
 
-                               echo "<script>window.location.href='dashboard.php';</script>";   
+                               echo "<script>window.location.href='Dashboard/Admin/index.php';</script>";   
                                 
                             }else{
                                 ?>
