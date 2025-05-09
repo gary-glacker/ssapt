@@ -27,49 +27,60 @@
 
     <li class="nav-item dropdown">
 
-      <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-        <i class="bi bi-bell"></i>
-        <span class="badge bg-primary badge-number">4</span>
-      </a><!-- End Notification Icon -->
+<a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+  <i class="bi bi-bell"></i>
+  <?php
+      //connection
+      $conn = mysqli_connect("localhost","root","","school");
 
-      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-        <li class="dropdown-header">
-          You have  new notifications
-          <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-        </li>
-        <li>
-          <hr class="dropdown-divider">
-        </li>
+      
 
-        <li class="notification-item">
-          <i class="bi bi-check-circle text-success"></i>
-          <div>
-            <h4>Sit rerum fuga</h4>
-            <p>Quae dolorem earum veritatis oditseno</p>
-            <p>2 hrs. ago</p>
-          </div>
-        </li>
+      $select ="SELECT COUNT(*)AS notify FROM `notifications` WHERE `target_role`='teacher' ";
+      $query = mysqli_query($conn,$select);
 
-        <li>
-          <hr class="dropdown-divider">
-        </li>
+      while($row = mysqli_fetch_assoc($query)){
+        
+      ?>
+  <span class="badge bg-primary badge-number"><?php echo $row['notify'];?></span>
+</a><!-- End Notification Icon -->
+ <?php }?>
+<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+  <li class="dropdown-header">
+    You have  new notifications
+  </li>
+  <li>
+    <hr class="dropdown-divider">
+  </li>
+  <?php
+      //connection
+      $conn = mysqli_connect("localhost","root","","school");
 
-        <li class="notification-item">
-          <i class="bi bi-info-circle text-primary"></i>
-          <div>
-            <h4>Dicta reprehenderit</h4>
-            <p>Quae dolorem earum veritatis oditseno</p>
-            <p>4 hrs. ago</p>
-          </div>
-        </li>
+     
 
-        <li>
-          <hr class="dropdown-divider">
-        </li>
+      $select ="SELECT * FROM `notifications` WHERE `target_role`='teacher'";
+      $query = mysqli_query($conn,$select);
 
-      </ul><!-- End Notification Dropdown Items -->
+      while($row = mysqli_fetch_assoc($query)){
+        
+      ?>
+  <li class="notification-item">
+    <i class="bi bi-bell text-success"></i>
+    <div>
+      <h4><?php echo $row['title'];?></h4>
+      <p><?php echo $row['message'];?></p>
+      <p><?php echo $row['created_at'];?></p>
+    </div>
+  </li>
 
-    </li><!-- End Notification Nav -->
+  <li>
+    <hr class="dropdown-divider">
+  </li>
+<?php }?>
+
+
+</ul><!-- End Notification Dropdown Items -->
+
+</li><!-- End Notification Nav -->
 
 
 
@@ -160,6 +171,11 @@
           <li>
             <a href="add_score.php">
               <i class="bi bi-circle"></i><span>Add Score</span>
+            </a>
+          </li>
+          <li>
+            <a href="coming.php">
+              <i class="bi bi-circle"></i><span>Club Request</span>
             </a>
           </li>
 

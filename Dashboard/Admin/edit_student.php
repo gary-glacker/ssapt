@@ -20,7 +20,7 @@ if(!isset($_SESSION['account'])){
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>New Student - SSAPT </title>
+  <title>Update Studentt - SSAPT </title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -74,35 +74,35 @@ if(!isset($_SESSION['account'])){
                 <h5 class="card-title">New Student</h5>
   
                 <form class="row g-3 needs-validation" novalidate method="POST">
+
+                        <?php
+                        //connection
+                        $conn = mysqli_connect("localhost","root","","school");
+                        if(isset($_GET['user_id'])){
+
+                            $updateid = $_GET['user_id'];
+                    
+                        $select ="SELECT *FROM `student` WHERE `id`='$updateid'";
+
+                        $query = mysqli_query($conn,$select);
+
+                        while($row = mysqli_fetch_assoc($query)){
+                        
+                        ?>
                     
                     <div class="col-12">
                       <label for="yourName" class="form-label">Your Name</label>
-                      <input type="text" name="name" class="form-control" id="yourName" required>
+                      <input type="text" name="name" value="<?php echo $row['name']?>" class="form-control" id="yourName" required>
                       <div class="invalid-feedback">Please, enter your full name!</div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourEmail" class="form-label">Your Email</label>
-                      <input type="text" name="email" class="form-control" id="yourEmail" required>
+                      <input type="text" name="email" value="<?php echo $row['name']?>" class="form-control" id="yourEmail" required>
                       <div class="invalid-feedback">Please enter a valid Email adddress!</div>
                     </div>
 
-                    <div class="col-12">
-                      <label for="yourRole" class="form-label">Role</label>
-                      <div class="input-group has-validation">
-                        <select name="role"  class="form-control" id="yourRole">
-                          <option selected> -- Choose your Status -- </option>
-                          <option value="student">Student</option>
-                        </select>
-                        <div class="invalid-feedback">Please choose a role</div>
-                      </div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="yourEmail" class="form-label">Your Password</label>
-                      <input type="text" name="password" class="form-control" id="yourEmail" value="12345" required>
-                      <div class="invalid-feedback">Please enter a valid password!</div>
-                    </div>
+             <?php }  }?>
 
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit" name="create">Create Account</button>
@@ -118,19 +118,18 @@ if(!isset($_SESSION['account'])){
                         
                         $name = $_POST['name'];
                         $em = $_POST['email'];
-                        $role = $_POST['role'];
-                        $pw =$_POST['password'];
+                        $updateid = $_GET['user_id'];
 
-                            $create ="INSERT INTO `student`( `name`, `email`, `role`, `password`) VALUES ('$name','$em','$role','$pw')";
+                        $create ="UPDATE `student` SET `name`='$name',`email`='$em', WHERE `id`='$updateid'";
 
-                            $query = mysqli_query($conn, $create);
+                        $query = mysqli_query($conn, $create);
 
-                            if($query){
-                                echo "<script> alert('Your are register New Student'); </script>";
-                                echo "<script> window.location.href ='manager_student.php';</script>";
-                            }else{
-                                echo "<script> alert('Your are not register student'); </script>";
-                            }
+                        if($query){
+                            echo "<script> alert('Your are Update'); </script>";
+                            echo "<script> window.location.href ='index.php';</script>";
+                        }else{
+                            echo "<script> alert('Your are not update'); </script>";
+                        }
 
                         }
                     ?>

@@ -5,10 +5,10 @@ session_start();
 if(!isset($_SESSION['users'])){
 
     ?>
-      <script>
-        window.location.href = '../../index.php';
-      </script>
-   <?php 
+<script>
+  window.location.href = '../../index.php';
+</script>
+<?php 
 }
 
 ?>
@@ -48,9 +48,9 @@ if(!isset($_SESSION['users'])){
 
 <body>
 
- <!-- heade section start -->
-      
- <?php 
+  <!-- heade section start -->
+
+  <?php 
     include ("components/header.php");
     ?>
 
@@ -75,7 +75,7 @@ if(!isset($_SESSION['users'])){
           <div class="row">
 
             <!-- Sales Card -->
-            <div class="col-xxl-4 col-md-4">
+            <div class="col-xxl-6 col-md-6">
               <div class="card info-card sales-card">
 
                 <div class="filter">
@@ -106,10 +106,12 @@ if(!isset($_SESSION['users'])){
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <a href="manager_student.php"><i class="bi bi-people"></i></a>
+                      <a href="manager_student.php"><i class="bi bi-people"></i></a>
                     </div>
                     <div class="ps-3">
-                      <h6><?php echo $row['number'];?></h6>
+                      <h6>
+                        <?php echo $row['number'];?>
+                      </h6>
                     </div>
                   </div>
                 </div>
@@ -118,7 +120,7 @@ if(!isset($_SESSION['users'])){
             </div><!-- End Sales Card -->
             <?php } ?>
             <!-- Sales Card -->
-            <div class="col-xxl-4 col-md-4">
+            <div class="col-xxl-6 col-md-6">
               <div class="card info-card sales-card">
 
                 <div class="filter">
@@ -129,7 +131,7 @@ if(!isset($_SESSION['users'])){
                     <li><a class="dropdown-item" href="#">EXCEL</a></li>
                   </ul>
                 </div>
-                    <?php
+                <?php
                     //connection
                     $conn = mysqli_connect("localhost","root","","school");
 
@@ -146,10 +148,12 @@ if(!isset($_SESSION['users'])){
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                     <a href="manager_teacher.php"><i class="bi bi-people"></i></a>
+                      <a href="manager_teacher.php"><i class="bi bi-people"></i></a>
                     </div>
                     <div class="ps-3">
-                      <h6><?php echo $row['number'];?></h6>
+                      <h6>
+                        <?php echo $row['number'];?>
+                      </h6>
                     </div>
                   </div>
                 </div>
@@ -157,118 +161,7 @@ if(!isset($_SESSION['users'])){
               </div>
             </div><!-- End Sales Card -->
 
-            <!-- Sales Card -->
-            <div class="col-xxl-4 col-md-4">
-              <div class="card info-card sales-card">
 
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-
-                    <li><a class="dropdown-item" href="#">PDF</a></li>
-                    <li><a class="dropdown-item" href="#">EXCEL</a></li>
-                  </ul>
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title"> School Status</h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-building"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>145</h6>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div><!-- End Sales Card -->
-
-  
-
-            <!-- Reports -->
-            <div class="col-12">
-              <div class="card">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title">Reports <span>/Today</span></h5>
-
-                  <!-- Line Chart -->
-                  <div id="reportsChart"></div>
-
-                  <script>
-                    document.addEventListener("DOMContentLoaded", () => {
-                      new ApexCharts(document.querySelector("#reportsChart"), {
-                        series: [{
-                          name: 'Sales',
-                          data: [31, 40, 28, 51, 42, 82, 56],
-                        }, {
-                          name: 'Revenue',
-                          data: [11, 32, 45, 32, 34, 52, 41]
-                        }, {
-                          name: 'Customers',
-                          data: [15, 11, 32, 18, 9, 24, 11]
-                        }],
-                        chart: {
-                          height: 350,
-                          type: 'area',
-                          toolbar: {
-                            show: false
-                          },
-                        },
-                        markers: {
-                          size: 4
-                        },
-                        colors: ['#4154f1', '#2eca6a', '#ff771d'],
-                        fill: {
-                          type: "gradient",
-                          gradient: {
-                            shadeIntensity: 1,
-                            opacityFrom: 0.3,
-                            opacityTo: 0.4,
-                            stops: [0, 90, 100]
-                          }
-                        },
-                        dataLabels: {
-                          enabled: false
-                        },
-                        stroke: {
-                          curve: 'smooth',
-                          width: 2
-                        },
-                        xaxis: {
-                          type: 'datetime',
-                          categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-                        },
-                        tooltip: {
-                          x: {
-                            format: 'dd/MM/yy HH:mm'
-                          },
-                        }
-                      }).render();
-                    });
-                  </script>
-                  <!-- End Line Chart -->
-
-                </div>
-
-              </div>
-            </div><!-- End Reports -->
 
 
 
@@ -285,7 +178,7 @@ if(!isset($_SESSION['users'])){
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>SSAPT  </span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>SSAPT </span></strong>. All Rights Reserved
     </div>
 
     </div>

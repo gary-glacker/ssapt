@@ -64,13 +64,14 @@ if(!isset($_SESSION['users'])){
 
     <section class="section dashboard">
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
 
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">New Club</h5>
   
                 <form class="row g-3 needs-validation" novalidate method="POST">
+
                     
                     <div class="col-12">
                       <label for="yourName" class="form-label">Club Name</label>
@@ -113,13 +114,113 @@ if(!isset($_SESSION['users'])){
 
                         }
                     ?>
-                  </form>
+                </form>
               </div>
             </div>
   
         </div>
         
-      
+          <div class="col-lg-6 col-md-6">
+          <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">New Club</h5>
+    
+                <div class="table">
+                  <table class="table">
+                    <tr>
+                      <th>Club ID</th>
+                      <th>Club Name</th>
+                      <th>Action</th>
+                    </tr>
+                    <?php
+                      //connection
+                      $conn = mysqli_connect("localhost","root","","school");
+
+                      $select ="SELECT * FROM `clubs`";
+                      $query = mysqli_query($conn,$select);
+
+                      while($row = mysqli_fetch_assoc($query)){
+                      
+                      ?>
+                    <tr>
+                      <td><?php echo $row['id'];?></td>
+                      <td><?php echo $row['name'];?></td>
+                      <td>
+                        <a href="?user_id=<?php echo $row['id'];?>" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#basicModal">Update</a>
+                        <a href="delete_club.php?delete_id=<?php echo $row['id'];?>" class="btn btn-danger m-1">Delete</a>
+                      </td>
+                    </tr>
+                    <?php }?>
+                  </table>
+                </div>
+                </div>
+              </div>
+          </div>
+          <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Update Club</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                    <form class="row g-3 needs-validation" novalidate method="POST">
+                    <?php
+                      //connection
+                      $conn = mysqli_connect("localhost","root","","school");
+
+                      $select ="SELECT * FROM `clubs`";
+                      $query = mysqli_query($conn,$select);
+
+                      while($row = mysqli_fetch_assoc($query)){
+                      
+                      ?>
+                    
+                    <div class="col-12">
+                      <label for="yourName" class="form-label">Club Name</label>
+                      <input type="text" name="name" class="form-control" id="yourName" value="<?php echo $row['name'];?>">
+                    </div>
+
+                    <div class="col-12">
+                      <label for="yourEmail" class="form-label">Club Description</label>
+                      <input type="text" name="description" class="form-control" id="yourEmail" value="<?php echo $row['description'];?>">
+
+                    </div>
+                     <?php } ?>
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100" type="submit" name="update">Create Account</button>
+                    </div>
+                   
+                    <?php
+                    //Connection in database
+                    $conn = mysqli_connect("localhost","root","","school");
+
+             
+
+                    if(isset($_POST['update'])){
+                        
+                        $name = $_POST['name'];
+                        $description = $_POST['description'];
+
+
+                            $create ="UPDATE `clubs` SET `name`='$name',`description`='$description' WHERE ";
+
+                            $query = mysqli_query($conn, $create);
+
+                            if($query){
+                                echo "<script> alert('Your are register New club'); </script>";
+                                echo "<script> window.location.href ='club.php';</script>";
+                            }else{
+                                echo "<script> alert('Your are not register club'); </script>";
+                            }
+
+                        }
+                    ?>
+                </form>
+                  </div>
+                </div>
+              </div>
       </div>
         
         

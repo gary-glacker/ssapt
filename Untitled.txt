@@ -1,0 +1,60 @@
+
+
+----------------------------
+ SSAPT SYSTEM PRESENTATION
+----------------------------
+         ----------------------------------
+             ADMIN DASHBOARD
+         ----------------------------------
+
+START ON ADMIN > Add new student in system
+               > add new teach in system
+
++-----------------------------------+
+| MAKE LOGIN ON STUDENT CREADENTIAL |
++-----------------------------------+
+
++-----------------------------------+
+| HEAD SECTION COMPONETS            |
++-----------------------------------+
+|  1. Overview all information about|
+|      system                       |
+|  2. Join Club                     |
+|  3. report issues on the team     |
+|     community and person          |
++-----------------------------------+
+
+
+         ----------------------------------
+             STUDENT DASHBOARD
+         ----------------------------------
+
++-----------------------------------+
+| HEAD SECTION COMPONETS            |
++-----------------------------------+
+|  1. Overview all information about|
+|      system                       |
+|  2. Join Club                     |
+|  3. making report issues on the   |
+|     admin                         |
++-----------------------------------+
+
+
+         ----------------------------------
+             TEACHER DASHBOARD
+         ----------------------------------
+
++-----------------------------------+
+| HEAD SECTION COMPONETS            |
++-----------------------------------+
+|  1. Overview student information 
+|  about system                      |
+|  2.  Club Creation in all crud    |
+|  3. making report issues on the   |
+|     admin
+                         |
++-----------------------------------+
+
+
+
+problem statement are relation 

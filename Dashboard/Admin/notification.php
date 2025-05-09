@@ -73,7 +73,7 @@ if(!isset($_SESSION['account'])){
               <div class="card-body">
                 <h5 class="card-title">New Annocuments</h5>
   
-                <form class="row g-3 needs-validation"  method="POST">
+                <form class="row g-3 needs-validation" novalidate method="POST">
                     
                     <div class="col-12">
                       <label for="yourName" class="form-label">Title Annocuments</label>
@@ -81,8 +81,8 @@ if(!isset($_SESSION['account'])){
                     </div>
 
                     <div class="col-12">
-                      <label for="yourName" class="form-label">Messgae</label>
-                      <input type="text" name="message" class="form-control" id="yourName" required>
+                      <label for="yourEmail" class="form-label">Message</label>
+                      <input type="text" name="message" class="form-control" id="yourEmail" required>
                     </div>
 
                     <div class="col-12">
@@ -93,44 +93,49 @@ if(!isset($_SESSION['account'])){
                           <option value="student">Student</option>
                           <option value="teacher">Teacher</option>
                         </select>
+                        <div class="invalid-feedback">Please choose a role</div>
                       </div>
                     </div>
 
                     <div class="col-12">
-                      <label for="yourName" class="form-label">Date</label>
-                      <input type="date" name="date" class="form-control" id="yourName" required>
+                      <label for="yourEmail" class="form-label">Creator</label>
+                      <input type="text" name="creator" class="form-control" id="yourEmail" value='Admin' readonly>
                     </div>
 
+
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit" name="create">Create Account</button>
+                      <button class="btn btn-primary w-100" type="submit" name="Add">Create Annocuments</button>
                     </div>
                    
                     <?php
                     //Connection in database
                     $conn = mysqli_connect("localhost","root","","school");
 
-                    if(isset($_POST['create'])){
+             
+
+                    if(isset($_POST['Add'])){
                         
                         $title = $_POST['title'];
                         $message = $_POST['message'];
                         $role = $_POST['role'];
-                        $date = $_POST['date'];
-                        $creator = 'admin';
- 
-                            $create ="INSERT INTO `notifications`(`title`, `message`, `target_role`, `created_by`, `created_at`) VALUES ('$title','$message','$role','$creator','$date')";
+                        $creator = $_POST['creator'];
 
-                            $query = mysqli_query($conn, $create);
+
+
+                            $send ="INSERT INTO `notifications`(`title`, `message`, `target_role`, `created_by`) VALUES ('$title','$message','$role','$creator')";
+
+                            $query = mysqli_query($conn, $send);
 
                             if($query){
-                                echo "<script> alert('Your are add New Annoucement'); </script>";
+                                echo "<script> alert('Your are Upload'); </script>";
                                 echo "<script> window.location.href ='index.php';</script>";
                             }else{
-                                echo "<script> alert('Your are not add annoucement'); </script>";
+                                echo "<script> alert('Your are not Uploaded'); </script>";
                             }
 
                         }
                     ?>
-                  </form>
+                </form>
               </div>
             </div>
   

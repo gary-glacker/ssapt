@@ -108,7 +108,7 @@ if(!isset($_SESSION['account'])){
                             <span class="badge bg-primary">Registered</span>
                         </td>
                         <td>
-                            <a href="" class="btn btn-primary">Edit</a>
+                            <a href="edit_student.php?user_id=<?php echo $row['id'];?>" class="btn btn-primary">Edit</a>
                             <a href="delete_student.php?delete_id=<?php echo $row['id'];?>" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>

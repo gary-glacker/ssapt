@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2025 at 09:33 AM
+-- Generation Time: May 09, 2025 at 11:19 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -45,7 +45,28 @@ CREATE TABLE `audit_logs` (
 CREATE TABLE `clubs` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `description` text DEFAULT NULL
+  `description` text DEFAULT NULL,
+  `created_by` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `clubs`
+--
+
+INSERT INTO `clubs` (`id`, `name`, `description`, `created_by`) VALUES
+(2, 'kabaye', 'zsrxectyvubinomkp,l;.', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `club_request`
+--
+
+CREATE TABLE `club_request` (
+  `id` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `useremail` varchar(255) NOT NULL,
+  `club_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -85,11 +106,18 @@ CREATE TABLE `journals` (
 CREATE TABLE `notifications` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `message` text NOT NULL,
-  `target_role` enum('admin','teacher','student') NOT NULL,
-  `created_by` int(11) NOT NULL,
-  `created_at` datetime DEFAULT current_timestamp()
+  `message` varchar(255) NOT NULL,
+  `target_role` varchar(255) NOT NULL,
+  `created_by` varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `title`, `message`, `target_role`, `created_by`, `created_at`) VALUES
+(3, 'new student', 'zwrexctyvubinomp,.[/', 'student', 'Admin', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -104,6 +132,51 @@ CREATE TABLE `performances` (
   `score` decimal(5,2) NOT NULL,
   `term` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `report`
+--
+
+CREATE TABLE `report` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `role` varchar(255) NOT NULL,
+  `issue` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `report`
+--
+
+INSERT INTO `report` (`id`, `name`, `email`, `role`, `issue`) VALUES
+(3, 'gatare', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student`
+--
+
+CREATE TABLE `student` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `role` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `student`
+--
+
+INSERT INTO `student` (`id`, `name`, `email`, `role`, `password`) VALUES
+(1, 'gatare', 'gatarepatrick05@gmail.com', 'student', '12345'),
+(2, '`levy', 'admin@admin.com', 'student', '12345'),
+(5, 'eric', 'eric@gmail.com', 'student', '12345'),
+(6, 'gary glacker', 'student@example.com', 'student', '12345');
 
 -- --------------------------------------------------------
 
@@ -135,6 +208,29 @@ CREATE TABLE `student_club_entries` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `teacher`
+--
+
+CREATE TABLE `teacher` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `role` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `teacher`
+--
+
+INSERT INTO `teacher` (`id`, `name`, `email`, `role`, `password`, `image`) VALUES
+(1, 'kamana', 'kamana@gmail.com', 'teacher', '12345', ''),
+(2, 'MUGISHA ERIC', 'mugisha@gmail.com', 'teacher', '12345', '');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -145,6 +241,13 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `role` enum('admin','teacher','student') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`) VALUES
+(1, 'Admin', 'admin@admin.com', '12345', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -165,6 +268,12 @@ ALTER TABLE `clubs`
   ADD UNIQUE KEY `name` (`name`);
 
 --
+-- Indexes for table `club_request`
+--
+ALTER TABLE `club_request`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `discipline_records`
 --
 ALTER TABLE `discipline_records`
@@ -183,8 +292,7 @@ ALTER TABLE `journals`
 -- Indexes for table `notifications`
 --
 ALTER TABLE `notifications`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `created_by` (`created_by`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `performances`
@@ -192,6 +300,18 @@ ALTER TABLE `notifications`
 ALTER TABLE `performances`
   ADD PRIMARY KEY (`id`),
   ADD KEY `student_id` (`student_id`);
+
+--
+-- Indexes for table `report`
+--
+ALTER TABLE `report`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `student`
+--
+ALTER TABLE `student`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `students`
@@ -208,6 +328,12 @@ ALTER TABLE `student_club_entries`
   ADD PRIMARY KEY (`id`),
   ADD KEY `student_id` (`student_id`),
   ADD KEY `club_id` (`club_id`);
+
+--
+-- Indexes for table `teacher`
+--
+ALTER TABLE `teacher`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -230,6 +356,12 @@ ALTER TABLE `audit_logs`
 -- AUTO_INCREMENT for table `clubs`
 --
 ALTER TABLE `clubs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `club_request`
+--
+ALTER TABLE `club_request`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -248,13 +380,25 @@ ALTER TABLE `journals`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `performances`
 --
 ALTER TABLE `performances`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `report`
+--
+ALTER TABLE `report`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `student`
+--
+ALTER TABLE `student`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `students`
@@ -269,10 +413,16 @@ ALTER TABLE `student_club_entries`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `teacher`
+--
+ALTER TABLE `teacher`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -296,12 +446,6 @@ ALTER TABLE `discipline_records`
 --
 ALTER TABLE `journals`
   ADD CONSTRAINT `journals_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
-
---
--- Constraints for table `notifications`
---
-ALTER TABLE `notifications`
-  ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `performances`

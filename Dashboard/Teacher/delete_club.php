@@ -9,16 +9,16 @@ if(isset($_GET['delete_id'])){
   $delete_data=$_GET['delete_id'];
 }
 
- $sql = "DELETE FROM `student` WHERE `id`='$delete_data'";
+ $sql = "DELETE FROM `clubs` WHERE `id`='$delete_data'";
 
   $query =mysqli_query($conn,$sql);
 
   if($query){
     echo "<script>alert('delete successful')</script>";
-    echo "<script> window.location.href ='manager_student.php'</script>";
+    echo "<script> window.location.href ='club.php'</script>";
 
   }else{
     echo "<script> alert('delete operation not perform')</script>";
-    echo "<script> window.location.href ='manager_student.php';</script>";
+    echo "<script> window.location.href ='club.php';</script>";
 
   }

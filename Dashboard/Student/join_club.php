@@ -3,7 +3,7 @@
 
 session_start();
 
-if(!isset($_SESSION['account'])){
+if(!isset($_SESSION['student'])){
     ?>
       <script>
         window.location.href = '../../index.php';
@@ -20,7 +20,7 @@ if(!isset($_SESSION['account'])){
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>New Student - SSAPT </title>
+  <title> Join Club - SSAPT </title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -44,7 +44,6 @@ if(!isset($_SESSION['account'])){
 </head>
 
 <body>
-
  <!-- heade section start -->
       
  <?php 
@@ -59,91 +58,84 @@ if(!isset($_SESSION['account'])){
       <h1>Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="manager_student.php">Manager Student</a></li>
-          <li class="breadcrumb-item active">Add New Student</li>
+          <li class="breadcrumb-item"><a href="index.html">Club</a></li>
+          <li class="breadcrumb-item active">Join Club</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
-      <div class="row">
         <div class="col-lg-12">
 
             <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">New Student</h5>
-  
+            <div class="card-body">
+                <h5 class="card-title"> Student Request</h5>
+
                 <form class="row g-3 needs-validation" novalidate method="POST">
-                    
+
+                    <?php
+                        //connection
+                        $conn = mysqli_connect("localhost","root","","school");
+
+                        $userid = $_SESSION['student'];
+
+                        $select ="SELECT * FROM `student` WHERE `email` ='$userid'";
+                        $query = mysqli_query($conn,$select);
+
+                        while($row = mysqli_fetch_assoc($query)){
+                        
+                        ?>
+                                
                     <div class="col-12">
-                      <label for="yourName" class="form-label">Your Name</label>
-                      <input type="text" name="name" class="form-control" id="yourName" required>
-                      <div class="invalid-feedback">Please, enter your full name!</div>
+                    <label for="yourName" class="form-label">Your Name</label>
+                    <input type="text" name="name" class="form-control" id="yourName" value="<?php echo $row['name']?>" readonly>
+                    <div class="invalid-feedback">Please, enter your full name!</div>
                     </div>
 
                     <div class="col-12">
-                      <label for="yourEmail" class="form-label">Your Email</label>
-                      <input type="text" name="email" class="form-control" id="yourEmail" required>
-                      <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                    <label for="yourEmail" class="form-label">Your Email</label>
+                    <input type="text" name="email" class="form-control" id="yourEmail" value="<?php echo $row['email']?>" readonly>
+                    <div class="invalid-feedback">Please enter a valid Email adddress!</div>
                     </div>
+                  
+
+                    <?php }?>
 
                     <div class="col-12">
-                      <label for="yourRole" class="form-label">Role</label>
-                      <div class="input-group has-validation">
-                        <select name="role"  class="form-control" id="yourRole">
-                          <option selected> -- Choose your Status -- </option>
-                          <option value="student">Student</option>
-                        </select>
-                        <div class="invalid-feedback">Please choose a role</div>
-                      </div>
+                    <button class="btn btn-primary w-100" type="submit" name="create">Create Account</button>
                     </div>
-
-                    <div class="col-12">
-                      <label for="yourEmail" class="form-label">Your Password</label>
-                      <input type="text" name="password" class="form-control" id="yourEmail" value="12345" required>
-                      <div class="invalid-feedback">Please enter a valid password!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit" name="create">Create Account</button>
-                    </div>
-                   
+                
                     <?php
                     //Connection in database
                     $conn = mysqli_connect("localhost","root","","school");
 
-             
+            
 
                     if(isset($_POST['create'])){
                         
                         $name = $_POST['name'];
                         $em = $_POST['email'];
-                        $role = $_POST['role'];
-                        $pw =$_POST['password'];
+                        $club = $_GET['club_id'];
 
-                            $create ="INSERT INTO `student`( `name`, `email`, `role`, `password`) VALUES ('$name','$em','$role','$pw')";
+
+                            $create ="INSERT INTO `club_request`(`username`, `useremail`, `club_name`) VALUES ('$name','$em','$club','[value-4]')";
 
                             $query = mysqli_query($conn, $create);
 
                             if($query){
-                                echo "<script> alert('Your are register New Student'); </script>";
-                                echo "<script> window.location.href ='manager_student.php';</script>";
+                                echo "<script> alert('Your are send request to join club'); </script>";
+                                echo "<script> window.location.href ='club.php';</script>";
                             }else{
-                                echo "<script> alert('Your are not register student'); </script>";
+                                echo "<script> alert('Your are not send request'); </script>";
                             }
 
                         }
                     ?>
                 </form>
-              </div>
             </div>
-  
+            </div>
+
         </div>
-      
-      </div>
-        
-        
-    
 
     </section>
 
@@ -152,7 +144,7 @@ if(!isset($_SESSION['account'])){
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>SSAPT  </span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>SSAPT  </span></strong> All Rights Reserved
     </div>
 
     </div>
